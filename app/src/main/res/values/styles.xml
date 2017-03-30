@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme (NoActionBar means to hide the original action bar for compatibility reasons and then we will make our own toolbar). -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorLightBackground</item>
+        <item name="android:buttonStyle">@style/ButtonColor</item>
+
+
+    </style>
+
+    <style name="ButtonColor" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/plain_button</item>
+    </style>
+
+
+
+</resources>

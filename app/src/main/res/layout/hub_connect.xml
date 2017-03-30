@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/activity_display_message"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!-- toolbar -->
+    <include layout="@layout/app_bar"
+        android:id="@+id/my_toolbar4"/>
+
+    <TextView
+        android:text="@string/connect_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@color/colorLightBackground"
+        android:dividerHeight="3dp"
+        android:padding="3dp">
+    </ListView>
+
+
+</LinearLayout>

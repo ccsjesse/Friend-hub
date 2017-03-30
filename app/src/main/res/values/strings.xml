@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">gMaps</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="edit_message">edit_message</string>
+    <string name="button_send">Send</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_favorite">Favourite</string>
+    <string name="title_activity_child">Menu</string>
+    <string name="hub_list">Hubs</string>
+    <string name="action_search">Search</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="profile">Profile</string>
+    <string name="hub_connect">Hub Connect</string>
+    <string name="hubs_nearby">Hubs Nearby</string>
+    <string name="new_user">Create An Account</string>
+    <string name="connect_text1">No nearby bluetooth connections found.</string>
+    <string name="attribute1">attribute1</string>
+    <string name="attribute2">attribute2</string>
+    <string name="attribute3">attribute3</string>
+    <string name="attribute4">attribute4</string>
+    <string name="attribute5">attribute5</string>
+</resources>
