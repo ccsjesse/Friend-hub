@@ -53,7 +53,7 @@ public class HubArrayAdaptor extends ArrayAdapter<Hub>  {
 //        ProgressBar progress_bar;
         ImageView image_view_location = (ImageView) row.findViewById(R.id.icon);
         image_view_location.setVisibility (View.VISIBLE);
-        new NewAsyncTask(image_view_location).execute (theStringArray.get(position).getURL()); //URL
+       // new NewAsyncTask(image_view_location).execute (theStringArray.get(position).getURL()); //URL
 
         TextView label = (TextView) row.findViewById( R.id.name);
         label.setText (theStringArray.get(position).getName());

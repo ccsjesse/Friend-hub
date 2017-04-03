@@ -1,9 +1,11 @@
 package com.example.jesse.gmaps.api;
 
+import com.example.jesse.gmaps.model.Hub;
 import com.example.jesse.gmaps.model.Personality;
 import com.example.jesse.gmaps.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,6 +34,9 @@ public interface ServerRoutesCallable {
 
     @PUT("/personalities/1")
     public Call<Personality> submitUserPersonality(@Body HashMap results);
+
+    @GET("/hubs")
+    public Call<List<Hub>> getAllHubs();
 
 }
 

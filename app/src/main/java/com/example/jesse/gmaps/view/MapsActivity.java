@@ -7,10 +7,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.controller.APIController;
+import com.example.jesse.gmaps.controller.IntentController;
+import com.example.jesse.gmaps.model.Hub;
 import com.example.jesse.gmaps.view.HubListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,9 +23,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
+import static com.example.jesse.gmaps.controller.APIController.HubController.hubList;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private IntentController mIntentController; //maybe not needed
+    private APIController.HubController mHubController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //enable up button
         ab.setDisplayHomeAsUpEnabled(true);
 
+        mHubController = new APIController.HubController(MapsActivity.this);
+
     }
 
 
@@ -54,12 +66,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mHubController.getHubs();
         // Add a marker in Sydney and move the camera
         LatLng starbucks = new LatLng(49.262239, -123.250248);
         mMap.addMarker(new MarkerOptions().position(starbucks).title("Starbucks @ Kaiser"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(starbucks));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+    }
+
+    public void addMarkers(List<Hub> hubList){
+        Log.v("GMAP", hubList.get(1).getName());
+        for(Hub hub: hubList){
+            double lat = hub.getLatitude();
+            double lng = hub.getLongitude();
+            LatLng curHubCords = new LatLng(lat,lng);
+            mMap.addMarker(new MarkerOptions().position(curHubCords).title(hub.getName()));
+            Log.v("GMAP", "Marker added");
+        }
     }
 
     // Add buttons from 'menu.appbar' to toolbar when the activity is created

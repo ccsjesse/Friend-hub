@@ -3,13 +3,20 @@ package com.example.jesse.gmaps.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.util.Size;
+import android.widget.Toast;
 
 import com.example.jesse.gmaps.api.APIManager;
 import com.example.jesse.gmaps.api.ServerRoutesCallable;
+import com.example.jesse.gmaps.model.Hub;
 import com.example.jesse.gmaps.model.User;
 import com.example.jesse.gmaps.view.MainActivity;
+import com.example.jesse.gmaps.view.MapsActivity;
+import com.google.android.gms.maps.GoogleMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,6 +70,7 @@ public class APIController {
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         Log.e(TAG, "Failed\n" + t.getMessage());
+                        Toast.makeText(mActivityCaller,"Login Failed", Toast.LENGTH_LONG);
                     }
                 });
             }
@@ -96,7 +104,7 @@ public class APIController {
 
             }
         }
-    public static class SurveyController extends APIController {
+        public static class SurveyController extends APIController {
 
         public SurveyController(Activity listener){
             super(listener);
@@ -132,4 +140,40 @@ public class APIController {
             });
         }
     }
+    public static class HubController extends APIController {
+
+        public static List hubList = new ArrayList();
+
+        public HubController(Activity listener){
+            super(listener);
+        }
+
+        public void getHubs(){
+            //define which endpoint to call from ServerRoutesCallable methods
+            Call<List<Hub>> call = service.getAllHubs();
+            //Perform async operation to make HTTP call
+            call.enqueue(new Callback<List<Hub>>() { //Object you are expecting back
+                @Override
+                public void onResponse(Call<List<Hub>> call, Response<List<Hub>> response) {
+                    Log.e(TAG, "Response Body" + response.body());
+
+                    for(Hub hub: response.body()) {
+                        Hub curHub = new Hub();
+                        hubList.add(hub);
+                        Log.e(TAG,hub.toString());
+                        Log.e(TAG,response.body().toString());
+                    }
+
+                    //Call back a method in the original calling Activity
+                    ((MapsActivity) mActivityCaller).addMarkers(hubList);
+                }
+
+                @Override
+                public void onFailure(Call<List<Hub>> call, Throwable t) {
+                    Log.e(TAG, "Failed\n" + t.getMessage());
+                }
+            });
+        }
+    }
+
 }

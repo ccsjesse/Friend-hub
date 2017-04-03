@@ -38,10 +38,10 @@ public class HubListActivity extends AppCompatActivity {
             Intent intent = new Intent(v.getContext(), HubInfoTempActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
             String hubName = selectedHub.getName();
             String hubLocation = selectedHub.getLocation();
-            String hubPic = selectedHub.getURL();
+           // String hubPic = selectedHub.getURL();
             intent.putExtra(HUB_NAME, hubName);
             intent.putExtra(HUB_LOCN, hubLocation);
-            intent.putExtra(HUB_PIC, hubPic);
+           // intent.putExtra(HUB_PIC, hubPic);
             startActivity(intent);
             //position = row number that user touched
         }
@@ -75,12 +75,12 @@ public class HubListActivity extends AppCompatActivity {
         Hub hub1 = new Hub();
         hub1.setName("Starbucks @ Kaiser");
         hub1.setLocation("Location is Kaiser");
-        hub1.setImageURL("https://s-media-cache-ak0.pinimg.com/564x/98/3e/e4/983ee49f919eaeb9a299027895b292a1.jpg");
+     //   hub1.setImageURL("https://s-media-cache-ak0.pinimg.com/564x/98/3e/e4/983ee49f919eaeb9a299027895b292a1.jpg");
 
         Hub hub2 = new Hub();
         hub2.setName("hub2");
         hub2.setLocation("hub2 location");
-        hub2.setImageURL("https://s-media-cache-ak0.pinimg.com/564x/98/3e/e4/983ee49f919eaeb9a299027895b292a1.jpg");
+     //   hub2.setImageURL("https://s-media-cache-ak0.pinimg.com/564x/98/3e/e4/983ee49f919eaeb9a299027895b292a1.jpg");
         //add new details to our com.example.jesse.gmaps.model.Hub array
         hubArray1.add(hub1);
         hubArray1.add(hub2);

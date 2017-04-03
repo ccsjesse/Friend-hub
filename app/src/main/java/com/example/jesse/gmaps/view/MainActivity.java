@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.controller.APIController;
 import com.example.jesse.gmaps.controller.IntentController;
+import com.example.jesse.gmaps.model.Hub;
 import com.example.jesse.gmaps.model.User;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE2 = "password";
     private APIController.LoginController mLoginController;
     private IntentController mIntentController;
+    private APIController.HubController mHubController;
     private EditText mPasswordView;
     private EditText mEmailView;
 
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         mLoginController = new APIController.LoginController(MainActivity.this);
         mIntentController = new IntentController(MainActivity.this);
+        mHubController = new APIController.HubController(MainActivity.this);
 
         mPasswordView = (EditText) findViewById(R.id.userPassword);
         mEmailView = (EditText) findViewById(R.id.userEmail);
@@ -77,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         mLoginController.attemptLogin(email,password);
+    }
 
+    public void onHubsResponse(List<Hub> hubList){
+        Log.v("HUB RESPONSE",hubList.get(1).getName().toString());
     }
 
     // Add buttons from 'menu.appbar' to toolbar when the activity is created
