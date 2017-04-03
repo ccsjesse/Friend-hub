@@ -1,6 +1,11 @@
 package com.example.jesse.gmaps;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Set;
 
 public class DisplayMessageActivity extends AppCompatActivity {
+
+    private final static int REQUEST_ENABLE_BT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +53,42 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
         startActivity(intent);
     }
-    public void goToHubConnect(View view){
-        //do something in response to button
-        Intent intent = new Intent(this, HubConnectActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
-        startActivity(intent);
+    public void goToHubConnect(View view) {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(mBluetoothAdapter==null) {
+            Toast toast = Toast.makeText(getApplicationContext(),"No Bluetooth", Toast.LENGTH_LONG);
+            toast.show();
+            finish();
+            return;
+        }
+        //enable turn on bluetooth
+        if(!mBluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent (BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
+        }
+        else{
+            //go to custom made "bluetooth listview"
+            Intent intent = new Intent(this, HubConnectActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
+            startActivity(intent);
+        }
+
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode==REQUEST_ENABLE_BT){
+            if(resultCode != RESULT_OK){
+                Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth failed to start", Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }
+            else{
+                //go to custom made "bluetooth listview"
+                Intent intent = new Intent(this, HubConnectActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
+                startActivity(intent);
+            }
+        }
+
+    }
+
 
     public void goToHubsNearby(View view){
         //do something in response to button
