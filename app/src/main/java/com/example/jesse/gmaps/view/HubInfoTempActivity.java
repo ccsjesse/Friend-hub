@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.view.HubListActivity;
 
 import java.io.IOException;
 import java.io.InputStream;

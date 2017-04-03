@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.model.Hub;
 
 import java.io.IOException;
 import java.io.InputStream;

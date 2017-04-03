@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.model;
 
 /**
  * Created by Jesse on 3/23/2017.

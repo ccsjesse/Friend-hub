@@ -1,16 +1,16 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.adapters.BtArrayAdaptor;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,7 @@ public class HubConnectActivity extends AppCompatActivity {
 
         String bt1 = "bluetooth1";
         String bt2 = "bluetooth2";
-        //add new details to our com.example.jesse.gmaps.Hub array
+        //add new details to our com.example.jesse.gmaps.model.Hub array
         btArray1.add(bt1);
         btArray1.add(bt2);
         //notify the array adaptor that the arrary contents have changed (redraw)
