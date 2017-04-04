@@ -1,6 +1,5 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,7 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.jesse.gmaps.adapters.HubArrayAdaptor;
+import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.model.Hub;
 
 import java.util.ArrayList;
 
@@ -79,7 +81,7 @@ public class HubListActivity extends AppCompatActivity {
         hub2.setName("hub2");
         hub2.setLocation("hub2 location");
         hub2.setImageURL("https://s-media-cache-ak0.pinimg.com/564x/98/3e/e4/983ee49f919eaeb9a299027895b292a1.jpg");
-        //add new details to our com.example.jesse.gmaps.Hub array
+        //add new details to our com.example.jesse.gmaps.model.Hub array
         hubArray1.add(hub1);
         hubArray1.add(hub2);
         //notify the array adaptor that the arrary contents have changed (redraw)

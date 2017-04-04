@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
 import android.location.Location;
 import android.os.Bundle;

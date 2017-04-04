@@ -42,9 +42,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".DisplayMessageActivity" >
+            android:parentActivityName=".view.DisplayMessageActivity" >
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -54,55 +54,55 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayMessageActivity" />
+                android:value=".view.DisplayMessageActivity" />
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".DisplayMessageActivity"
+        <activity android:name=".view.DisplayMessageActivity"
             android:label="@string/title_activity_child"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".view.MainActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /> ></activity>
+                android:value=".view.MainActivity" /> ></activity>
 
-        <activity android:name=".HubConnectActivity"
+        <activity android:name=".view.HubConnectActivity"
             android:label="@string/hub_connect"
-            android:parentActivityName=".DisplayMessageActivity" >
+            android:parentActivityName=".view.DisplayMessageActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayMessageActivity" /> ></activity>
+                android:value=".view.DisplayMessageActivity" /> ></activity>
 
-        <activity android:name=".ProfileActivity"
+        <activity android:name=".view.ProfileActivity"
             android:label="@string/profile"
-            android:parentActivityName=".DisplayMessageActivity" >
+            android:parentActivityName=".view.DisplayMessageActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayMessageActivity" /> ></activity>
+                android:value=".view.DisplayMessageActivity" /> ></activity>
 
-        <activity android:name=".HubListActivity"
+        <activity android:name=".view.HubListActivity"
             android:label="@string/hub_list"
-            android:parentActivityName=".MapsActivity" >
+            android:parentActivityName=".view.MapsActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MapsActivity" /> ></activity>
+                android:value=".view.MapsActivity" /> ></activity>
 
-        <activity android:name=".HubInfoTempActivity"
+        <activity android:name=".view.HubInfoTempActivity"
             android:label="@string/title_activity_child"
-            android:parentActivityName=".HubListActivity" >
+            android:parentActivityName=".view.HubListActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HubListActivity" /> ></activity>
+                android:value=".view.HubListActivity" /> ></activity>
     </application>
 
 </manifest>

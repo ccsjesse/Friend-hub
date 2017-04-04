@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -13,9 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import com.example.jesse.gmaps.R;
 import android.widget.Toast;
 
 import java.util.Set;
