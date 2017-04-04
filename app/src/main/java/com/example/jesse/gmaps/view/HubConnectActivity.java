@@ -95,8 +95,6 @@ public class HubConnectActivity extends AppCompatActivity {
         mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Toast toast2 = Toast.makeText(getApplicationContext(), "onReceived called", Toast.LENGTH_SHORT);
-                toast2.show();
                     String action = intent.getAction();
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         // Discovery has found a device. Get the BluetoothDevice
@@ -108,8 +106,6 @@ public class HubConnectActivity extends AppCompatActivity {
                         btArray1.add(deviceName);
                         //notify the arrya adaptor that the array contents have changed (redraw)
                         btArrayAdaptor1.notifyDataSetChanged();
-                        Toast toast1 = Toast.makeText(getApplicationContext(), "in paired devices", Toast.LENGTH_SHORT);
-                        toast1.show();
                     }
                 }
         };

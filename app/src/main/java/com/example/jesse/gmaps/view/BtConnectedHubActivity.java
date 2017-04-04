@@ -1,4 +1,4 @@
-package com.example.jesse.gmaps;
+package com.example.jesse.gmaps.view;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.jesse.gmaps.model.Comment;
+import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.adapters.WallArrayAdaptor;
 
 import java.util.ArrayList;
 
