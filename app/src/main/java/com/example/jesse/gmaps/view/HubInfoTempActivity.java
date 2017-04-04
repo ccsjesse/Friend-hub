@@ -78,7 +78,7 @@ public class HubInfoTempActivity  extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(String... url_array) {
             URL url;
-            Log.i("MainActivity", "Inside the async task");
+            Log.i("LoginActivity", "Inside the async task");
 
             try {
 //                publishProgress(0);

@@ -35,7 +35,7 @@ public class HubListActivity extends AppCompatActivity {
             Hub selectedHub  = (Hub) parent.getAdapter().getItem(position);
 
 
-            Intent intent = new Intent(v.getContext(), HubInfoTempActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
+            Intent intent = new Intent(v.getContext(), HubInfoTempActivity.class); // 1st param activity is subclass of context (refering to LoginActivity) 2nd is refering to the new activity
             String hubName = selectedHub.getName();
             String hubLocation = selectedHub.getLocation();
            // String hubPic = selectedHub.getURL();

@@ -1,6 +1,5 @@
 package com.example.jesse.gmaps.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -15,7 +14,6 @@ import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.controller.APIController;
 import com.example.jesse.gmaps.controller.IntentController;
 import com.example.jesse.gmaps.model.Hub;
-import com.example.jesse.gmaps.view.HubListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,8 +22,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-
-import static com.example.jesse.gmaps.controller.APIController.HubController.hubList;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -91,35 +87,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.appbar, menu);
 
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
         // Configure the search info and add any event listeners...
 
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
-
-            case R.id.action_favorite:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Intent intent = new Intent(this, HubListActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
-                startActivity(intent);
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
 }
