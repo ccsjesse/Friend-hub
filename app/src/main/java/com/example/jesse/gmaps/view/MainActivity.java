@@ -19,7 +19,7 @@ import com.example.jesse.gmaps.controller.IntentController;
 import com.example.jesse.gmaps.model.User;
 
 
-public class MainActivity extends AppCompatActivity {
+public class    MainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "username";
     public final static String EXTRA_MESSAGE2 = "password";

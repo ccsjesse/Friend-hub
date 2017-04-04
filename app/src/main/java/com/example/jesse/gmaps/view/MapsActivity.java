@@ -1,7 +1,10 @@
 package com.example.jesse.gmaps.view;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,19 +12,26 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.jesse.gmaps.Manifest;
 import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.view.HubListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static java.lang.Boolean.TRUE;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private UiSettings mUiSettings;
+    private final static int REQUEST_FINE_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_FINE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        mMap.setMyLocationEnabled(true);
+                    } else {
+                        //TODO re-request
+                        Toast toast = Toast.makeText(this, "coarse location is required to detect BT devices", Toast.LENGTH_LONG);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
 
     /**
@@ -54,12 +83,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mUiSettings = mMap.getUiSettings();
+        //NEED ACCESS FINE LOCATION to know your location. This calls onrequestPermissionResult
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_FINE_LOCATION);
+        mUiSettings.setZoomControlsEnabled(true);
 
         // Add a marker in Sydney and move the camera
         LatLng starbucks = new LatLng(49.262239, -123.250248);
         mMap.addMarker(new MarkerOptions().position(starbucks).title("Starbucks @ Kaiser"));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(starbucks));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+
     }
 
     // Add buttons from 'menu.appbar' to toolbar when the activity is created

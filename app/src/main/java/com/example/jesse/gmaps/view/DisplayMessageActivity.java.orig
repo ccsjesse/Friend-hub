@@ -13,11 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-
-import com.example.jesse.gmaps.R;
+<<<<<<< HEAD:app/src/main/java/com/example/jesse/gmaps/DisplayMessageActivity.java
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Set;
+=======
+
+import com.example.jesse.gmaps.R;
+>>>>>>> 277f6a40bf8d2bf880f007f0997eaa548fa986e7:app/src/main/java/com/example/jesse/gmaps/view/DisplayMessageActivity.java
 
 public class DisplayMessageActivity extends AppCompatActivity {
 

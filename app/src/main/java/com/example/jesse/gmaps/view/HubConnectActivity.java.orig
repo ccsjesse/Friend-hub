@@ -1,5 +1,6 @@
 package com.example.jesse.gmaps.view;
 
+<<<<<<< HEAD:app/src/main/java/com/example/jesse/gmaps/HubConnectActivity.java
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -9,6 +10,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+=======
+>>>>>>> 277f6a40bf8d2bf880f007f0997eaa548fa986e7:app/src/main/java/com/example/jesse/gmaps/view/HubConnectActivity.java
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+<<<<<<< HEAD:app/src/main/java/com/example/jesse/gmaps/HubConnectActivity.java
+import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
+=======
+
 import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.adapters.BtArrayAdaptor;
+>>>>>>> 277f6a40bf8d2bf880f007f0997eaa548fa986e7:app/src/main/java/com/example/jesse/gmaps/view/HubConnectActivity.java
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -70,6 +77,7 @@ public class HubConnectActivity extends AppCompatActivity {
         //set the adaptor view for list view
         HubListView.setAdapter(btArrayAdaptor1);
 
+<<<<<<< HEAD:app/src/main/java/com/example/jesse/gmaps/HubConnectActivity.java
         //See if you have devices that you have paired with
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
@@ -95,6 +103,8 @@ public class HubConnectActivity extends AppCompatActivity {
         mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Toast toast2 = Toast.makeText(getApplicationContext(), "onReceived called", Toast.LENGTH_SHORT);
+                toast2.show();
                     String action = intent.getAction();
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                         // Discovery has found a device. Get the BluetoothDevice
@@ -106,6 +116,8 @@ public class HubConnectActivity extends AppCompatActivity {
                         btArray1.add(deviceName);
                         //notify the arrya adaptor that the array contents have changed (redraw)
                         btArrayAdaptor1.notifyDataSetChanged();
+                        Toast toast1 = Toast.makeText(getApplicationContext(), "in paired devices", Toast.LENGTH_SHORT);
+                        toast1.show();
                     }
                 }
         };
@@ -126,6 +138,15 @@ public class HubConnectActivity extends AppCompatActivity {
                 break;
             }
         }
+=======
+        String bt1 = "bluetooth1";
+        String bt2 = "bluetooth2";
+        //add new details to our com.example.jesse.gmaps.model.Hub array
+        btArray1.add(bt1);
+        btArray1.add(bt2);
+        //notify the array adaptor that the arrary contents have changed (redraw)
+        btArrayAdaptor1.notifyDataSetChanged();
+>>>>>>> 277f6a40bf8d2bf880f007f0997eaa548fa986e7:app/src/main/java/com/example/jesse/gmaps/view/HubConnectActivity.java
     }
         protected void proceedDiscovery() {
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
