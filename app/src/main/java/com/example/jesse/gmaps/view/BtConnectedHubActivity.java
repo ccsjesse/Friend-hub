@@ -77,5 +77,6 @@ public class BtConnectedHubActivity extends AppCompatActivity {
         tempComment.setInitials("JC");
         //TODO: send post to server
     }
+
 }
 

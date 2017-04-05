@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jesse.gmaps.R;
+import com.example.jesse.gmaps.controller.APIController;
+import com.example.jesse.gmaps.model.Personality;
 
 public class ProfileActivity extends AppCompatActivity {
+    APIController.PersonalityController mPersonalityController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,9 @@ public class ProfileActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         //enable up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        mPersonalityController = new APIController.PersonalityController(ProfileActivity.this);
+        mPersonalityController.getPersonalityInfo("1");
     }
 
     // Add buttons from 'menu.appbar' to toolbar when the activity is created
@@ -35,5 +41,10 @@ public class ProfileActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.appbar, menu);
         return true;
+    }
+    public  static void onPersonalityResponse(Personality personality){
+        Log.v("GLOBAL", Personality.userPersonality.getAttrA());    // This shows that Personality.userPersonality... can be used in any function
+
+        personality.getAttrA();
     }
 }

@@ -23,8 +23,10 @@ import android.widget.Toast;
 import android.Manifest;
 import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.adapters.BtArrayAdaptor;
+import com.example.jesse.gmaps.model.Comment;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class HubConnectActivity extends AppCompatActivity {
@@ -145,12 +147,17 @@ public class HubConnectActivity extends AppCompatActivity {
             return true;
         }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Don't forget to unregister the ACTION_FOUND receiver.
         unregisterReceiver(mReceiver);
+    }
+
+    public static void onCommentResponse(List<Comment> clientComment){
+
+        // do something
+
     }
 
 }

@@ -9,6 +9,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Personality {
 
+    public static Personality userPersonality;
+
+    public Personality(){
+        userPersonality = this;
+    }
+
     @SerializedName("id")
     @Expose
     private Integer id;
