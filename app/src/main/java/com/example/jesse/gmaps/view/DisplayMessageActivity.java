@@ -7,23 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.jesse.gmaps.R;
-import com.example.jesse.gmaps.controller.IntentController;
-import com.example.jesse.gmaps.controller.TabController;
 
 public class DisplayMessageActivity extends AppCompatActivity {
-
-    TabController menuController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
-
-        menuController = new TabController(DisplayMessageActivity.this);
 
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
         setSupportActionBar(myChildToolbar);
@@ -33,8 +26,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();                                            //every activity is started by an intent
-        String message  = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);    //get extra stuff from main activity in the intent
-        String message2 = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE2);
+        String message  = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);    //get extra stuff from main activity in the intent
+        String message2 = intent.getStringExtra(MainActivity.EXTRA_MESSAGE2);
 //        TextView textView =  new TextView(this);                                // create view to display text
 //        textView.setTextSize(40);
 //        textView.setText("User: " + message + "\n" +"Password: " + message2);
@@ -46,18 +39,18 @@ public class DisplayMessageActivity extends AppCompatActivity {
     }
     public void goToProfile(View view){
         //do something in response to button
-        Intent intent = new Intent(this, ProfileActivity.class); // 1st param activity is subclass of context (refering to LoginActivity) 2nd is refering to the new activity
+        Intent intent = new Intent(this, ProfileActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
         startActivity(intent);
     }
     public void goToHubConnect(View view){
         //do something in response to button
-        Intent intent = new Intent(this, HubConnectActivity.class); // 1st param activity is subclass of context (refering to LoginActivity) 2nd is refering to the new activity
+        Intent intent = new Intent(this, HubConnectActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
         startActivity(intent);
     }
 
     public void goToHubsNearby(View view){
         //do something in response to button
-        Intent intent = new Intent(this, MapsActivity.class); // 1st param activity is subclass of context (refering to LoginActivity) 2nd is refering to the new activity
+        Intent intent = new Intent(this, MapsActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity
         startActivity(intent);
     }
     @Override
@@ -81,27 +74,5 @@ public class DisplayMessageActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.appbar, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_profile:
-                Log.v("Tabs", "Profile Clicked");
-                menuController.goToProfile(item);
-                return true;
-
-            case R.id.action_settings:
-                Log.v("Tabs", "Settings Clicked");
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
     }
 }

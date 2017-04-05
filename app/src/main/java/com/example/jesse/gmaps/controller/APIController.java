@@ -3,14 +3,16 @@ package com.example.jesse.gmaps.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.util.Size;
 import android.widget.Toast;
 
 import com.example.jesse.gmaps.api.APIManager;
 import com.example.jesse.gmaps.api.ServerRoutesCallable;
 import com.example.jesse.gmaps.model.Hub;
 import com.example.jesse.gmaps.model.User;
-import com.example.jesse.gmaps.view.LoginActivity;
+import com.example.jesse.gmaps.view.MainActivity;
 import com.example.jesse.gmaps.view.MapsActivity;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +64,7 @@ public class APIController {
                         Log.e(TAG, "Client Object" + client);
 
                         //Call back a method in the original calling Activity
-                        ((LoginActivity) mActivityCaller).onLoginResponse(client);
+                        ((MainActivity) mActivityCaller).onLoginResponse(client);
                     }
 
                     @Override
@@ -89,7 +91,7 @@ public class APIController {
                             client.setEmail(response.body().getEmail());
                             client.setBio(response.body().getBio());
                             Log.e(TAG, "Success" + client);
-                            ((LoginActivity) mActivityCaller).onLoginResponse(client);
+                            ((MainActivity) mActivityCaller).onLoginResponse(client);
                         }else{ //failed to login
                             Log.v(TAG, "Error" + response.body());
                         }
@@ -128,7 +130,7 @@ public class APIController {
                     Log.e(TAG, "Client Object" + client);
 
                     //Call back a method in the original calling Activity
-                    ((LoginActivity) mActivityCaller).onLoginResponse(client);
+                    ((MainActivity) mActivityCaller).onLoginResponse(client);
                 }
 
                 @Override

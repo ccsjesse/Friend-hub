@@ -82,7 +82,7 @@ public class HubArrayAdaptor extends ArrayAdapter<Hub>  {
         @Override
         protected Bitmap doInBackground(String... url_array) {
             URL url;
-            Log.i("LoginActivity", "Inside the async task");
+            Log.i("MainActivity", "Inside the async task");
 
             try {
 //                publishProgress(0);
