@@ -7,7 +7,7 @@
 
     <!-- toolbar -->
     <include layout="@layout/app_bar"
-        android:id="@+id/my_toolbar1" />
+        android:id="@+id/bottom_navigation" />
 
     <!-- this is the 'texbox + send '-->
 

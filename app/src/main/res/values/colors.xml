@@ -8,4 +8,8 @@
     <color name="colorButGrad1">#9B795D</color>
     <color name="colorButText">#A99E82</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="customTeal">#589BA4</color>
+    <color name="customDGreen">#24454C</color>
+    <color name="customLGreen">#DEF2F3</color>
 </resources>

@@ -15,7 +15,6 @@ import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.controller.APIController;
 import com.example.jesse.gmaps.controller.IntentController;
 import com.example.jesse.gmaps.model.Hub;
-import com.example.jesse.gmaps.view.HubListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,8 +23,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-
-import static com.example.jesse.gmaps.controller.APIController.HubController.hubList;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -41,13 +38,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);  //this represents this "OnMapReadCallback" method - onMapReady()
-
-        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_toolbar3);
-        setSupportActionBar(myChildToolbar);
-        //get corresponding action bar for this tool bar
-        ActionBar ab = getSupportActionBar();
-        //enable up button
-        ab.setDisplayHomeAsUpEnabled(true);
 
         mHubController = new APIController.HubController(MapsActivity.this);
 
@@ -85,29 +75,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    // Add buttons from 'menu.appbar' to toolbar when the activity is created
+    // Add buttons from 'menu.bottom_menu' to toolbar when the activity is created
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.appbar, menu);
-
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
-        // Configure the search info and add any event listeners...
-
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.bottom_menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_profile:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
-            case R.id.action_favorite:
+            case R.id.action_find:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 Intent intent = new Intent(this, HubListActivity.class); // 1st param activity is subclass of context (refering to MainActivity) 2nd is refering to the new activity

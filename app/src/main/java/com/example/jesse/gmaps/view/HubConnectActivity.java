@@ -62,11 +62,11 @@ public class HubConnectActivity extends AppCompatActivity {
         //notify the array adaptor that the arrary contents have changed (redraw)
         btArrayAdaptor1.notifyDataSetChanged();
     }
-        // Add buttons from 'menu.appbar' to toolbar when the activity is created
+        // Add buttons from 'menu.bottom_menu' to toolbar when the activity is created
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.appbar, menu);
+            getMenuInflater().inflate(R.menu.bottom_menu, menu);
             return true;
         }
 }

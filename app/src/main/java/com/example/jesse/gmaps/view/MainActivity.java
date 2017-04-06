@@ -1,6 +1,5 @@
 package com.example.jesse.gmaps.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import com.example.jesse.gmaps.model.User;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public final static String EXTRA_MESSAGE = "username";
     public final static String EXTRA_MESSAGE2 = "password";
@@ -36,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setLayout(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar myToolbar =  (Toolbar) findViewById(R.id.my_toolbar1);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("Login");
 
         mLoginController = new APIController.LoginController(MainActivity.this);
         mIntentController = new IntentController(MainActivity.this);
@@ -58,11 +54,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i("MY_MESSAGE", "in onResume (MainActivity)");
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("MY_MESSAGE", "in onPause (MainActivity)");
     }
     @Override
     protected void onStop(){
@@ -88,15 +79,15 @@ public class MainActivity extends AppCompatActivity {
         Log.v("HUB RESPONSE",hubList.get(1).getName().toString());
     }
 
-    // Add buttons from 'menu.appbar' to toolbar when the activity is created
+    // Add buttons from 'menu.bottom_menu' to toolbar when the activity is created
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.appbar, menu);
-
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.bottom_menu, menu);
+//
+//
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
         // Configure the search info and add any event listeners...
 
@@ -106,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_profile:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
-            case R.id.action_favorite:
+            case R.id.action_connect:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 return true;
@@ -121,5 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        return R.id.action_profile;
     }
 }
