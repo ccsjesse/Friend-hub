@@ -20,12 +20,4 @@
     <string name="attribute3">attribute3</string>
     <string name="attribute4">attribute4</string>
     <string name="attribute5">attribute5</string>
-    <string name="title_activity_survey">Survey</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="RadioButton1Text">Highly Agree</string>
-    <string name="RadioButton2Text">Mildly Agree</string>
-    <string name="RadioButton3Text">Mildly Disagree</string>
-    <string name="RadioButton4Text">Strongly Disagree</string>
 </resources>
-
-

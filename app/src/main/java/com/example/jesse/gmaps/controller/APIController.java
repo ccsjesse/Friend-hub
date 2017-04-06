@@ -6,10 +6,16 @@ import android.util.Log;
 
 import com.example.jesse.gmaps.api.APIManager;
 import com.example.jesse.gmaps.api.ServerRoutesCallable;
+import com.example.jesse.gmaps.model.Comment;
+import com.example.jesse.gmaps.model.Personality;
 import com.example.jesse.gmaps.model.User;
+import com.example.jesse.gmaps.view.HubConnectActivity;
 import com.example.jesse.gmaps.view.MainActivity;
+import com.example.jesse.gmaps.view.ProfileActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -127,6 +133,74 @@ public class APIController {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
+                    Log.e(TAG, "Failed\n" + t.getMessage());
+                }
+            });
+        }
+    }
+
+    public static class PersonalityController extends APIController {
+
+        public PersonalityController(Activity listener){
+            super(listener);
+        }
+
+        private Personality clientPersonality = new Personality(); // change to the model needed
+
+        public void getPersonalityInfo(String id){
+            //define which endpoint to call from ServerRoutesCallable methods
+            Call<Personality> call = service.getUserPersonality(id);
+            //Perform async operation to make HTTP call
+            call.enqueue(new Callback<Personality>() { //Object you are expecting back
+                @Override
+                public void onResponse(Call<Personality> call, Response<Personality> response) {
+                    Log.e(TAG, "Response Body" + response.body());
+                    //Set java object based on HTTP response
+                    clientPersonality = response.body();
+                    Log.e(TAG, "Client Personality Object" + clientPersonality);
+
+                    //Call back a method in the original calling Activity
+                    ((ProfileActivity) mActivityCaller).onPersonalityResponse(clientPersonality);
+                }
+
+                @Override
+                public void onFailure(Call<Personality> call, Throwable t) {
+                    Log.e(TAG, "Failed\n" + t.getMessage());
+                }
+            });
+        }
+    }
+
+    public static class CommentController extends APIController {
+
+
+        public CommentController(Activity listener){
+            super(listener);
+        }
+
+        public static List commentList = new ArrayList(); // change to the model needed
+
+        public void getCommentInfo(String id){
+            //define which endpoint to call from ServerRoutesCallable methods
+            Call<List<Comment>> call = service.getHubWallComment(id);
+            //Perform async operation to make HTTP call
+            call.enqueue(new Callback<List<Comment>>() { //Object you are expecting back
+                @Override
+                public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                    Log.e(TAG, "Response Body" + response.body());
+
+                    //Set java object based on HTTP response
+                    for(Comment comment : response.body()) {
+                        commentList.add(comment);
+                    }
+                    Log.e(TAG, "Client Personality Object" + commentList);
+
+                    //Call back a method in the original calling Activity
+                    ((HubConnectActivity) mActivityCaller).onCommentResponse(commentList);
+                }
+
+                @Override
+                public void onFailure(Call<List<Comment>> call, Throwable t) {
                     Log.e(TAG, "Failed\n" + t.getMessage());
                 }
             });

@@ -2,6 +2,7 @@ package com.example.jesse.gmaps.view;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,18 @@ import android.widget.Toast;
 import android.Manifest;
 import com.example.jesse.gmaps.R;
 import com.example.jesse.gmaps.adapters.BtArrayAdaptor;
+import com.example.jesse.gmaps.model.Comment;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class HubConnectActivity extends AppCompatActivity {
     private final static int REQUEST_COARSE_LOCATION = 1;
@@ -34,6 +45,14 @@ public class HubConnectActivity extends AppCompatActivity {
     private ArrayList<String> btArray1 = new ArrayList<String>();
     private BroadcastReceiver mReceiver;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private ArrayList<BluetoothDevice> Discovereddevices = new ArrayList<BluetoothDevice>();
+    private ArrayList<String> myDiscoveredDevicesStringArray = new ArrayList<String>();
+
+
+    private BluetoothSocket mmSocket = null;
+    public static InputStream mmInStream = null;
+    public static OutputStream mmOutStream = null;
+    private boolean Connected = false;
 
     private AdapterView.OnItemClickListener btClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -69,7 +88,6 @@ public class HubConnectActivity extends AppCompatActivity {
 
         //set the adaptor view for list view
         HubListView.setAdapter(btArrayAdaptor1);
-
         //See if you have devices that you have paired with
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
@@ -82,7 +100,7 @@ public class HubConnectActivity extends AppCompatActivity {
                 btArray1.add(deviceName);
                 //notify the arrya adaptor that the array contents have changed (redraw)
                 btArrayAdaptor1.notifyDataSetChanged();
-                Toast toast = Toast.makeText(getApplicationContext(),"in paired devices", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(),"in paired devices", LENGTH_LONG);
                 toast.show();
             }
         }
@@ -121,7 +139,8 @@ public class HubConnectActivity extends AppCompatActivity {
                     proceedDiscovery(); // --->
                 } else {
                     //TODO re-request
-                    Toast toast = Toast.makeText(this,"coarse location is required to detect BT devices", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(this,"coarse location is required to detect BT devices", LENGTH_LONG);
+                    toast.show();
                 }
                 break;
             }
@@ -136,6 +155,35 @@ public class HubConnectActivity extends AppCompatActivity {
                 mBluetoothAdapter.cancelDiscovery();
             //Look for new devices
             mBluetoothAdapter.startDiscovery();
+            Log.v("hubconnectactivity", "in proceedDiscovery");
+            Toast toast = Toast.makeText(this, "in proceedDiscovery", LENGTH_LONG);
+            toast.show();
+
+            //schtuff
+            Set<BluetoothDevice> theThings = mBluetoothAdapter.getBondedDevices();
+            if (theThings.size() > 0) {
+                Iterator<BluetoothDevice> iter = theThings.iterator();
+                BluetoothDevice aNewdevice = iter.next();
+
+                while (!aNewdevice.getName().equals("FriendHubID")) {
+                    aNewdevice = iter.next();
+                }
+                if (aNewdevice.getName().equals("FriendHubID")) {
+                    Log.v("ifloop", "when device is friendhubid");
+
+                    if (Connected == true) {
+                        closeConnection();
+                    }
+                    // get the selected bluetooth device based on list view position & connect // to it see pages 24 and 25
+                    Log.v("ifloop", "before create serial BT device socket");
+                    CreateSerialBluetoothDeviceSocket(aNewdevice);
+                    Log.v("ifloop", "after create serial BT device socket");
+                    ConnectToSerialBlueToothDevice();
+                    Log.v("ifloop", "after connect to serial BT device socket");
+
+                    WriteToBTDevice("HI MOM!!!!\n");
+                }
+            }
         }
         // Add buttons from 'menu.appbar' to toolbar when the activity is created
         @Override
@@ -145,12 +193,83 @@ public class HubConnectActivity extends AppCompatActivity {
             return true;
         }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Don't forget to unregister the ACTION_FOUND receiver.
         unregisterReceiver(mReceiver);
+    }
+
+
+    public void CreateSerialBluetoothDeviceSocket(BluetoothDevice device) {
+        mmSocket = null;
+        // universal UUID for a serial profile RFCOMM blue tooth device
+        // this is just one of those “things” that you have to do and just works
+        UUID MY_UUID = UUID.fromString ("00001101-0000-1000-8000-00805F9B34FB");
+        // Get a Bluetooth Socket to connect with the given BluetoothDevice
+        try {
+            // MY_UUID is the app's UUID string, also used by the server code
+            mmSocket = device.createRfcommSocketToServiceRecord (MY_UUID);
+        }
+        catch (IOException e) {
+            Toast toast =Toast.makeText(this, "Socket Creation Failed", LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    void closeConnection() {
+        try {
+            mmInStream.close();
+            mmInStream = null;
+        }
+        catch (IOException e) {}
+        try { mmOutStream.close();
+            mmOutStream= null;
+        } catch (IOException e) {}
+        try { mmSocket.close();
+            mmSocket = null;
+        } catch (IOException e) {}
+        Connected = false ;
+    }
+
+    public void GetInputOutputStreamsForSocket() { try {
+        mmInStream = mmSocket.getInputStream();
+        mmOutStream = mmSocket.getOutputStream(); } catch (IOException e) { }
+    }
+
+    public void ConnectToSerialBlueToothDevice() {
+        // Cancel discovery because it will slow down the connection
+        mBluetoothAdapter.cancelDiscovery();
+        Toast toast1 = Toast.makeText(this, "In connectToSerialBTDevice", LENGTH_LONG);
+        toast1.show();
+        try {
+            // Attempt connection to the device through the socket.
+            mmSocket.connect();
+            Toast toast = Toast.makeText(this, "Connection Made", LENGTH_LONG);
+            toast.show();
+        }
+        catch (IOException connectException) {
+            Toast toast =  Toast.makeText(this, "Connection Failed", LENGTH_LONG);
+            toast.show();
+            return; }
+        //create the input/output stream and record fact we have made a connection
+        GetInputOutputStreamsForSocket(); // see page 26
+        Connected = true ;
+    }
+
+    public void WriteToBTDevice (String message) {
+        String s = new String("\r\n") ;
+        byte[] msgBuffer = message.getBytes();
+        byte[] newline = s.getBytes();
+        try {
+            mmOutStream.write(msgBuffer) ; mmOutStream.write(newline) ;
+        } catch (IOException e) { }
+    }
+
+    public static void onCommentResponse(List<Comment> clientComment){
+
+        // do something
+
     }
 
 }
